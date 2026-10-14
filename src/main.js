@@ -5,6 +5,29 @@
   const ticketEvents = data.ticketEvents || [];
   const hero = data.hero || {};
 
+  const getPreferredTheme = () => {
+    const savedTheme = window.localStorage.getItem('ticketpro-theme');
+    if (savedTheme) {
+      return savedTheme;
+    }
+
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  };
+
+  const applyTheme = (theme) => {
+    const root = document.documentElement;
+    root.dataset.theme = theme;
+    const toggleButton = document.querySelector('.theme-toggle');
+
+    if (toggleButton) {
+      toggleButton.textContent = theme === 'dark' ? '🌙' : '☀️';
+      toggleButton.setAttribute('aria-pressed', String(theme === 'dark'));
+      toggleButton.setAttribute('aria-label', theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
+    }
+
+    window.localStorage.setItem('ticketpro-theme', theme);
+  };
+
   const categoryRoot = document.querySelector('.categories');
   if (categoryRoot && categories.length) {
     categoryRoot.innerHTML = categories
@@ -76,6 +99,17 @@
         `
       )
       .join('');
+  }
+
+  const toggleButton = document.querySelector('.theme-toggle');
+  if (toggleButton) {
+    const initialTheme = getPreferredTheme();
+    applyTheme(initialTheme);
+
+    toggleButton.addEventListener('click', () => {
+      const currentTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+      applyTheme(currentTheme);
+    });
   }
 
   if (window.TicketProStorage) {

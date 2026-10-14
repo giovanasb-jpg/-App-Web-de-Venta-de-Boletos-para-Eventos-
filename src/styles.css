@@ -14,6 +14,16 @@
   --radius-sm: 14px;
 }
 
+:root[data-theme='dark'] {
+  --page-bg: #0d1117;
+  --panel-bg: #151b23;
+  --text: #edf2f7;
+  --muted: #a9b4c2;
+  --line: #2a3342;
+  --shadow-soft: 0 18px 30px rgba(2, 5, 9, 0.5);
+  --yellow-soft: rgba(255, 210, 31, 0.14);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -28,6 +38,7 @@ body {
   font-family: 'Inter', sans-serif;
   background: var(--page-bg);
   color: var(--text);
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 button,
@@ -156,7 +167,7 @@ img {
 .search-box {
   display: flex;
   align-items: center;
-  background: #fff;
+  background: var(--panel-bg);
   border: 2px solid rgba(255, 210, 31, 0.8);
   border-radius: 999px;
   overflow: hidden;
@@ -212,6 +223,7 @@ img {
   text-align: center;
   padding: 16px 10px 12px;
   box-shadow: 0 10px 18px rgba(24, 20, 12, 0.04);
+  transition: background-color 0.25s ease, border-color 0.25s ease;
 }
 
 .category-badge {
@@ -470,6 +482,7 @@ img {
   border-radius: var(--radius-md);
   background: var(--panel-bg);
   box-shadow: 0 14px 26px rgba(12, 12, 14, 0.05);
+  transition: background-color 0.25s ease, border-color 0.25s ease;
 }
 
 .ticket-image {
@@ -537,6 +550,51 @@ img {
   background: linear-gradient(180deg, var(--red-primary) 0%, var(--red-dark) 100%);
   color: #fff;
   padding: 30px 0 36px;
+}
+
+:root[data-theme='dark'] .topbar,
+:root[data-theme='dark'] .footer {
+  background: linear-gradient(180deg, #8f0f1d 0%, #660b14 100%);
+}
+
+:root[data-theme='dark'] .search-box,
+:root[data-theme='dark'] .category-item,
+:root[data-theme='dark'] .ticket-card,
+:root[data-theme='dark'] .row-arrow,
+:root[data-theme='dark'] .icon-button,
+:root[data-theme='dark'] .footer-socials button {
+  background: var(--panel-bg);
+  color: var(--text);
+}
+
+:root[data-theme='dark'] .search-box input,
+:root[data-theme='dark'] .category-item span,
+:root[data-theme='dark'] .ticket-body h3,
+:root[data-theme='dark'] .ticket-row,
+:root[data-theme='dark'] .ticket-body,
+:root[data-theme='dark'] .price-value,
+:root[data-theme='dark'] .section-heading h2,
+:root[data-theme='dark'] .brand-name,
+:root[data-theme='dark'] .brand-copy small,
+:root[data-theme='dark'] .hero-title,
+:root[data-theme='dark'] .hero-description,
+:root[data-theme='dark'] .ticket-row,
+:root[data-theme='dark'] .nav-link {
+  color: var(--text);
+}
+
+:root[data-theme='dark'] .footer-links a,
+:root[data-theme='dark'] .footer-brand small {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+:root[data-theme='dark'] .ticket-badge,
+:root[data-theme='dark'] .price-tag {
+  background: rgba(255, 210, 31, 0.12);
+}
+
+:root[data-theme='dark'] .category-badge {
+  box-shadow: inset 0 2px 8px rgba(255, 255, 255, 0.08);
 }
 
 .footer-inner {
