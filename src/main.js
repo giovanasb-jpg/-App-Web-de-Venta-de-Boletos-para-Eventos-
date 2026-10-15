@@ -74,90 +74,45 @@
     const posterRow = posterStrip.closest('.poster-row');
     const [previousButton, nextButton] = posterRow.querySelectorAll('.row-arrow');
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let isHovered = false;
-    let isFocused = false;
-    let autoTimer = null;
-    let isAnimating = false;
+    let previousFrameTime = 0;
 
-    // Create an infinite looping carousel by cloning first and last items
+    // Duplicate the sequence so the continuous scroll can loop without a visible jump.
     const originalPosters = Array.from(posterStrip.querySelectorAll('.poster-card'));
     if (originalPosters.length > 1) {
       const gap = Number.parseFloat(window.getComputedStyle(posterStrip).columnGap) || 0;
-      const firstClone = originalPosters[0].cloneNode(true);
-      const lastClone = originalPosters[originalPosters.length - 1].cloneNode(true);
-
-      posterStrip.appendChild(firstClone);
-      posterStrip.insertBefore(lastClone, posterStrip.firstChild);
-
-      // Recompute posters and sizes after DOM changes
-      const posters = Array.from(posterStrip.querySelectorAll('.poster-card'));
       const realCount = originalPosters.length;
-      const measureIndex = 1; // after prepend, index 1 is the first real poster
-      const itemWidth = Math.round(posters[measureIndex].getBoundingClientRect().width);
-      const scrollStep = itemWidth + gap;
-
-      // Start positioned on the first real poster (index 0 corresponds to scrollLeft = scrollStep)
-      posterStrip.scrollLeft = scrollStep;
-      let index = 0; // logical index for real posters 0..realCount-1
-
-      const adjustAfterMove = (targetIndex) => {
-        // If moved into clones, jump to corresponding real position instantly
-        if (targetIndex >= realCount) {
-          // arrived at clone of first -> jump to real first
-          posterStrip.scrollLeft = scrollStep;
-          index = 0;
-        } else if (targetIndex < 0) {
-          // arrived at clone of last -> jump to real last
-          posterStrip.scrollLeft = realCount * scrollStep;
-          index = realCount - 1;
-        } else {
-          index = targetIndex;
-        }
-        isAnimating = false;
-      };
-
-      const goTo = (targetIndex) => {
-        if (isAnimating) return;
-        isAnimating = true;
-        const targetPos = (targetIndex + 1) * scrollStep; // +1 for the prepended clone
-
-        if (reducedMotion.matches) {
-          posterStrip.scrollLeft = targetPos;
-          adjustAfterMove(targetIndex);
-          return;
-        }
-
-        posterStrip.scrollTo({ left: targetPos, behavior: 'smooth' });
-        // After the smooth scroll finishes, correct position if needed
-        setTimeout(() => adjustAfterMove(targetIndex), 480);
-      };
-
-      const next = () => goTo(index + 1);
-      const prev = () => goTo(index - 1);
-
-      previousButton.addEventListener('click', () => prev());
-      nextButton.addEventListener('click', () => next());
-
-      posterRow.addEventListener('pointerenter', () => { isHovered = true; pauseAuto(); });
-      posterRow.addEventListener('pointerleave', () => { isHovered = false; resumeAuto(); });
-      posterRow.addEventListener('focusin', () => { isFocused = true; pauseAuto(); });
-      posterRow.addEventListener('focusout', (event) => {
-        if (!posterRow.contains(event.relatedTarget)) { isFocused = false; resumeAuto(); }
+      originalPosters.forEach((poster) => {
+        const clone = poster.cloneNode(true);
+        clone.setAttribute('aria-hidden', 'true');
+        posterStrip.appendChild(clone);
       });
 
-      const startAuto = () => {
-        if (reducedMotion.matches) return;
-        if (autoTimer) clearInterval(autoTimer);
-        autoTimer = setInterval(() => {
-          if (!isHovered && !isFocused && !document.hidden) next();
-        }, 4500);
+      const getLoopDistance = () => posterStrip.children[realCount].offsetLeft - posterStrip.children[0].offsetLeft;
+      const getScrollStep = () => posterStrip.children[1].offsetLeft - posterStrip.children[0].offsetLeft || originalPosters[0].getBoundingClientRect().width + gap;
+
+      const move = (direction) => {
+        const loopDistance = getLoopDistance();
+        posterStrip.scrollLeft = (posterStrip.scrollLeft + direction * getScrollStep() + loopDistance) % loopDistance;
       };
-      const pauseAuto = () => { if (autoTimer) { clearInterval(autoTimer); autoTimer = null; } };
-      const resumeAuto = () => { if (!autoTimer) startAuto(); };
 
-      document.addEventListener('visibilitychange', () => { if (document.hidden) pauseAuto(); else resumeAuto(); });
+      previousButton.addEventListener('click', () => move(-1));
+      nextButton.addEventListener('click', () => move(1));
 
-      startAuto();
+      const animate = (time) => {
+        if (previousFrameTime && !document.hidden) {
+          const elapsed = Math.min(time - previousFrameTime, 50);
+          const loopDistance = getLoopDistance();
+          posterStrip.scrollLeft = (posterStrip.scrollLeft + elapsed * 0.032) % loopDistance;
+        }
+        previousFrameTime = time;
+        window.requestAnimationFrame(animate);
+      };
+
+      if (!reducedMotion.matches) {
+        window.requestAnimationFrame(animate);
+      }
+
+      document.addEventListener('visibilitychange', () => { previousFrameTime = 0; });
     } else {
       // If only one poster, keep simple behavior: arrows do nothing
       previousButton.addEventListener('click', () => {});

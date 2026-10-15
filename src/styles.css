@@ -388,8 +388,6 @@ img {
   overflow-x: auto;
   padding: 4px 0 14px;
   scrollbar-width: thin;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
 }
 
 .poster-card {
@@ -399,7 +397,6 @@ img {
   overflow: hidden;
   background: #d8d8d8 center/cover no-repeat;
   box-shadow: var(--shadow-soft);
-  scroll-snap-align: start;
 }
 
 .poster-card::after {
