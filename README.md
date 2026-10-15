@@ -8,15 +8,17 @@ Construir una experiencia web accesible y adaptable para consultar eventos y sim
 
 ## Tecnologías
 
-- HTML semántico, CSS y JavaScript moderno (módulos ES).
-- `localStorage` del navegador para el carrito y el historial de compras de demostración.
-- Sin framework, dependencias externas de JavaScript, API propia ni base de datos.
+- HTML semántico, CSS y JavaScript.
+- Vite como servidor de desarrollo; no se requiere un framework ni un backend.
 
 ## Estructura
 
 ```text
 .
+├── .gitignore
 ├── index.html
+├── package-lock.json
+├── package.json
 ├── README.md
 └── src/
     ├── data/
@@ -38,13 +40,14 @@ Construir una experiencia web accesible y adaptable para consultar eventos y sim
 
 ## Ejecutar localmente
 
-No hay instalación de paquetes. Desde la carpeta del proyecto, inicia un servidor estático con PHP:
+Desde la carpeta del proyecto, instala las dependencias y arranca el servidor de desarrollo:
 
 ```powershell
-php -S 127.0.0.1:8000
+npm install
+npm run dev
 ```
 
-Abre <http://localhost:8000> en el navegador. Si tienes Python instalado, también puedes usar `python -m http.server 8000` o una extensión de servidor estático de Visual Studio Code. No abras `index.html` directamente como archivo: el navegador necesita servir los módulos JavaScript por HTTP.
+Abre la dirección local que muestra Vite en la terminal (normalmente <http://127.0.0.1:5173>). No abras `index.html` directamente como archivo; utiliza el servidor de desarrollo.
 
 ## Compilación y pruebas
 
