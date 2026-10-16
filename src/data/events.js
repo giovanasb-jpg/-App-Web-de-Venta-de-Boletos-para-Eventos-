@@ -1,4 +1,4 @@
-window.TicketProData = {
+const ticketProData = {
   categories: [
     { name: 'Películas', icon: '🎬' },
     { name: 'Teatro', icon: '🎭' },
@@ -9,13 +9,6 @@ window.TicketProData = {
     { name: 'Arte y Cultura', icon: '🎨' },
     { name: 'Eventos Especiales', icon: '🎟️' }
   ],
-  hero: {
-    title: 'Festival de luz y sonido',
-    description:
-      'Un espectáculo de música, arte visual y energía para cerrar la noche con una experiencia inolvidable.',
-    image:
-      'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=1400&q=80'
-  },
   posterEvents: [
     {
       title: 'Voces del desierto',
@@ -97,3 +90,7 @@ window.TicketProData = {
     }
   ]
 };
+
+export const { categories, posterEvents, ticketEvents } = ticketProData;
+
+window.TicketProData = ticketProData;

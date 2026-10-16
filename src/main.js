@@ -3,7 +3,6 @@
   const categories = data.categories || [];
   const posterEvents = data.posterEvents || [];
   const ticketEvents = data.ticketEvents || [];
-  const hero = data.hero || {};
 
   const getPreferredTheme = () => {
     const savedTheme = window.localStorage.getItem('ticketpro-theme');
@@ -40,20 +39,6 @@
         `
       )
       .join('');
-  }
-
-  const heroBanner = document.querySelector('.hero-banner');
-  if (heroBanner && hero.image) {
-    heroBanner.style.backgroundImage = `linear-gradient(90deg, rgba(15, 16, 21, 0.71), rgba(15, 16, 21, 0.2)), url("${hero.image}")`;
-  }
-
-  const heroTitle = document.querySelector('.hero-title');
-  const heroDescription = document.querySelector('.hero-description');
-  if (heroTitle && hero.title) {
-    heroTitle.textContent = hero.title;
-  }
-  if (heroDescription && hero.description) {
-    heroDescription.textContent = hero.description;
   }
 
   const posterStrip = document.getElementById('posterStrip');
