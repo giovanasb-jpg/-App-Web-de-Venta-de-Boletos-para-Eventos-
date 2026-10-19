@@ -2,7 +2,7 @@ import React from 'react';
 import { ticketEvents } from '../../src/data/events.js';
 import TarjetaBoleto from './TarjetaBoleto.jsx';
 
-function ListaBoletos() {
+function ListaBoletos({ events = ticketEvents, onSelectEvent }) {
   return (
     <section className="tickets" aria-label="Lista de boletos">
       <div className="section-header">
@@ -12,8 +12,12 @@ function ListaBoletos() {
         </div>
       </div>
       <div className="ticket-grid">
-        {ticketEvents.map((event) => (
-          <TarjetaBoleto event={event} key={event.name} />
+        {events.map((event) => (
+          <TarjetaBoleto
+            event={event}
+            key={event.name}
+            onSelect={() => onSelectEvent?.(event)}
+          />
         ))}
       </div>
     </section>

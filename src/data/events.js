@@ -59,6 +59,24 @@ const ticketProData = {
         'https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=900&q=80'
     },
     {
+      category: 'Película',
+      name: 'La caída de la ballena',
+      originalTitle: 'Whalefall',
+      synopsis: 'Un buzo queda atrapado dentro de una ballena y lucha por sobrevivir.',
+      duration: 'Por confirmar',
+      releaseDate: 'Por confirmar',
+      director: 'Por confirmar',
+      cast: 'Por confirmar',
+      date: 'Por confirmar',
+      venue: 'Cines participantes',
+      priceLabel: 'Precio por confirmar',
+      price: 'Por confirmar',
+      posterSearchUrl:
+        'https://www.google.com/search?tbm=isch&q=La+ca%C3%ADda+de+la+ballena+Whalefall',
+      image:
+        'https://images.unsplash.com/photo-1568430462989-44163eb1752f?auto=format&fit=crop&w=900&q=80'
+    },
+    {
       category: 'Teatro',
       name: 'La reina del espejo',
       date: '18 ago 2026',
@@ -92,5 +110,8 @@ const ticketProData = {
 };
 
 export const { categories, posterEvents, ticketEvents } = ticketProData;
+
+export const normalizeSearchText = (value = '') =>
+  value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
 
 window.TicketProData = ticketProData;

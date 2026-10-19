@@ -209,6 +209,84 @@ img {
   filter: brightness(0.98);
 }
 
+.search-results {
+  display: grid;
+  gap: 4px;
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--panel-bg);
+  box-shadow: var(--shadow-soft);
+}
+
+.search-results-heading {
+  padding: 4px 10px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.search-result {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+}
+
+.search-result:hover,
+.search-result:focus-visible {
+  background: var(--yellow-soft);
+}
+
+.search-result-category {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.search-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.search-suggestions button {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel-bg);
+  color: var(--text);
+  padding: 7px 12px;
+  cursor: pointer;
+}
+
+.search-suggestions button:hover,
+.search-suggestions button:focus-visible {
+  border-color: var(--red-primary);
+  color: var(--red-primary);
+}
+
+.search-error {
+  margin: 12px 16px 0;
+  color: var(--red-primary);
+}
+
+.search-error strong {
+  margin-right: 8px;
+}
+
 .categories {
   display: grid;
   grid-template-columns: repeat(8, minmax(110px, 1fr));
@@ -370,6 +448,22 @@ img {
   transition: background-color 0.25s ease, border-color 0.25s ease;
 }
 
+.ticket-card-open {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ticket-card-open:focus-visible {
+  outline: 3px solid var(--red-primary);
+  outline-offset: -3px;
+}
+
 .ticket-image {
   height: 210px;
   background: #d9d8d8 center/cover no-repeat;
@@ -428,6 +522,96 @@ img {
   color: var(--red-primary);
   font-size: 1.3rem;
   letter-spacing: -0.05em;
+}
+
+.ticket-dialog {
+  width: min(760px, calc(100vw - 32px));
+  max-width: none;
+  max-height: min(820px, calc(100dvh - 32px));
+  padding: 0;
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--panel-bg);
+  color: var(--text);
+  box-shadow: var(--shadow-soft);
+}
+
+.ticket-dialog::backdrop {
+  background: rgba(12, 15, 20, 0.72);
+  backdrop-filter: blur(3px);
+}
+
+.ticket-dialog-content {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.82fr) minmax(0, 1fr);
+  min-height: 420px;
+}
+
+.ticket-dialog-poster {
+  min-height: 100%;
+  background: #d9d8d8 center/cover no-repeat;
+}
+
+.ticket-dialog-body {
+  position: relative;
+  padding: 32px 28px;
+}
+
+.ticket-dialog-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--panel-bg);
+  color: var(--text);
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.ticket-dialog-body h2 {
+  margin: 16px 36px 4px 0;
+  font-size: 1.7rem;
+}
+
+.ticket-original-title,
+.ticket-synopsis {
+  color: var(--muted);
+}
+
+.ticket-synopsis {
+  line-height: 1.6;
+}
+
+.ticket-detail-list {
+  display: grid;
+  gap: 12px;
+  margin: 22px 0;
+}
+
+.ticket-detail-list div {
+  display: grid;
+  grid-template-columns: 100px minmax(0, 1fr);
+  gap: 12px;
+}
+
+.ticket-detail-list dt {
+  color: var(--muted);
+}
+
+.ticket-detail-list dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+.ticket-poster-link {
+  display: inline-flex;
+  margin-top: 4px;
+  color: var(--red-primary);
+  font-weight: 700;
 }
 
 .footer {
@@ -570,6 +754,18 @@ img {
   .search-box button {
     min-width: 100px;
     padding-inline: 18px;
+  }
+
+  .ticket-dialog-content {
+    grid-template-columns: 1fr;
+  }
+
+  .ticket-dialog-poster {
+    min-height: 230px;
+  }
+
+  .ticket-dialog-body {
+    padding: 24px 20px;
   }
 
   .categories {
