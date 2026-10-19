@@ -1,13 +1,16 @@
-import React, { useEffect, useId, useRef } from 'react';
+import React, { useEffect, useId, useRef, useState } from 'react';
+import { parseTicketPrice } from './CompraSimulada.jsx';
 
-function EventDetails({ event, onClose }) {
+function EventDetails({ event, onClose, onAddToCart }) {
   const dialogRef = useRef(null);
   const titleId = useId();
+  const [addedToCart, setAddedToCart] = useState(false);
 
   useEffect(() => {
     const dialog = dialogRef.current;
     if (!dialog) return;
 
+    setAddedToCart(false);
     if (event && !dialog.open) dialog.showModal();
     if (!event && dialog.open) dialog.close();
   }, [event]);
@@ -66,6 +69,21 @@ function EventDetails({ event, onClose }) {
               Ver póster en Google Imágenes
             </a>
           )}
+          <button
+            className="cart-add-button"
+            type="button"
+            disabled={parseTicketPrice(event.price) === null}
+            onClick={() => {
+              onAddToCart(event);
+              setAddedToCart(true);
+            }}
+          >
+            {parseTicketPrice(event.price) === null
+              ? 'Precio no disponible'
+              : addedToCart
+                ? 'Agregado al carrito'
+                : 'Agregar al carrito'}
+          </button>
         </div>
       </div>
     </dialog>

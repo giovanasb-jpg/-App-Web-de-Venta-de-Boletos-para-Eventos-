@@ -53,6 +53,7 @@ Construir una experiencia web accesible y adaptable para consultar eventos y sim
 - Categorías y carteles cargados desde los datos existentes.
 - Carrusel de carteles con desplazamiento automático (respetando movimiento reducido) y controles anterior/siguiente.
 - Lista de boletos que presenta los datos ya existentes en `ticketEvents`.
+- Carrito de compra simulada en una ventana emergente: permite agregar boletos desde las especificaciones del evento, acumular cantidades, quitar boletos y consultar el total.
 - La barra de búsqueda sirve de manera correcta al buscar una categoria o cartel.
 - El antiguo `src/main.js` se conserva, pero ya no se carga con React.
 
@@ -64,7 +65,7 @@ Construir una experiencia web accesible y adaptable para consultar eventos y sim
 - Integrante 4: `estructura/componentes/CompraSimulada.jsx` y `ResumenCompra.jsx`.
 - Integrante 5: `estructura/paginas/Inicio.jsx`, `estructura/App.jsx` y `estructura/diseno.css`.
 
-Los componentes de detalles y compra son bases vacías y no se muestran hasta que se desarrollen esas secciones.
+Los detalles de los eventos se muestran en una ventana emergente. El carrito se abre desde el ícono del encabezado.
 
 ## Ejecutar localmente
 
@@ -83,7 +84,7 @@ Ejecuta `npm run build` para comprobar y generar la aplicación en `dist/`. No h
 
 ## Almacenamiento local y límites
 
-La preferencia del tema y un marcador de estado de demostración se guardan en `localStorage` en el navegador actual. No se sincronizan entre dispositivos ni usuarios. Todavía no hay carrito, formulario de compra ni pagos.
+La preferencia del tema y un marcador de estado de demostración se guardan en `localStorage` en el navegador actual. El carrito se conserva en memoria mientras la página está abierta. No se sincroniza entre dispositivos ni usuarios y no hay formulario de compra ni pagos reales.
 
 Las imágenes de ejemplo se cargan desde Unsplash y las tipografías desde Google Fonts; ambos recursos requieren conexión a internet y cuentan con alternativas locales del sistema para el texto. Los datos de eventos y disponibilidad son ficticios.
 

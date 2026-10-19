@@ -9,7 +9,7 @@ function getPreferredTheme() {
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 
-function Header() {
+function Header({ cartCount = 0, onOpenCart }) {
   const [theme, setTheme] = useState(getPreferredTheme);
 
   useEffect(() => {
@@ -46,7 +46,14 @@ function Header() {
             </button>
             <button className="icon-button" aria-label="Favoritos">♡</button>
             <button className="icon-button" aria-label="Búsqueda">⌕</button>
-            <button className="icon-button" aria-label="Carrito de compras">🛒</button>
+            <button
+              className="icon-button cart-shortcut"
+              aria-label={`Carrito de compras: ${cartCount} ${cartCount === 1 ? 'boleto' : 'boletos'}`}
+              onClick={onOpenCart}
+            >
+              🛒
+              {cartCount > 0 && <span className="cart-count" aria-hidden="true">{cartCount}</span>}
+            </button>
           </div>
         </nav>
       </div>
