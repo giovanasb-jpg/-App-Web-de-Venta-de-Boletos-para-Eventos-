@@ -54,6 +54,8 @@ Construir una experiencia web accesible y adaptable para consultar eventos y sim
 - Carrusel de carteles con desplazamiento automático (respetando movimiento reducido) y controles anterior/siguiente.
 - Lista de boletos que presenta los datos ya existentes en `ticketEvents`.
 - Carrito de compra simulada en una ventana emergente: permite agregar boletos desde las especificaciones del evento, acumular cantidades, quitar boletos y consultar el total.
+- Sistema de simulador de compra, es un boton con el cual simulas la compra de boletos.
+- Historial de compra sirve para ver lo que has comprado.
 - La barra de búsqueda sirve de manera correcta al buscar una categoria o cartel.
 - El antiguo `src/main.js` se conserva, pero ya no se carga con React.
 
@@ -77,6 +79,26 @@ npm run dev
 ```
 
 Abre la dirección local que muestra Vite en la terminal (normalmente <http://127.0.0.1:5173>). No abras `index.html` directamente como archivo; utiliza el servidor de desarrollo.
+## commits descriptivos
+
+Crear estructura inicial de la aplicación
+Diseñar página principal de eventos
+Implementar carrusel de eventos
+Agregar botones de navegación al carrusel
+Mostrar detalles y precios de los eventos
+Crear categorías por género de eventos
+Implementar filtros por género de eventos
+Agregar boletos al carrito de compras
+Mostrar resumen y subtotal del carrito
+Permitir eliminar boletos del carrito
+Validar selección y cantidad de boletos
+Implementar compra simulada de boletos
+Mostrar confirmación de compra
+Generar folio de compra ficticio
+Crear historial de compras
+Guardar historial en el navegador
+Validar funcionamiento de los botones
+Corregir errores de navegación
 
 ## Compilación y pruebas
 
